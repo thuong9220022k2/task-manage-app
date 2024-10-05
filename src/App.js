@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+import {
+  Button,
+  useDisclosure,
+  Stack,
+  Flex,
+  Box
+} from '@chakra-ui/react'
 import './App.css';
 
+import TaskModal from './components/modal'
+import TaskTable from './components/table';
+import Filter from './components/filter';
+
 function App() {
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Box mt={4}>
+        <Flex>
+          <Box w="50%">
+            <Button colorScheme="teal" onClick={onOpen}>Add Task</Button>
+          </Box>
+          <Box w="50%">
+            <Filter />
+          </Box>
+        </Flex>
+        <TaskModal isOpen={isOpen} onClose={onClose} />
+        <TaskTable />
+
+      </Box>
+
     </div>
   );
 }
