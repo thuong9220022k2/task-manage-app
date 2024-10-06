@@ -15,8 +15,10 @@ root.render(
     <ChakraProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Navigate to="/task" />} />
           <Route path="/task" element={<App />}>
           </Route>
+
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

@@ -12,5 +12,3 @@ To install dependencies for project
 ### `npm start`
 To run project in local env
 
-
-when access my app , redirect /task to use features
