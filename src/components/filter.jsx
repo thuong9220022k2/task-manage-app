@@ -1,16 +1,16 @@
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { useState, useEffect } from 'react';
 
-function Filter() {
-    const [taskStatus, setTaskStatus] = useState("all")
+function Filter({ onStatusChange }) {
+    const [selectedStatus, setSelectedStatus] = useState("all")
 
-    const taskStatusHandler = (value) => {
-        setTaskStatus(value)
-        localStorage.setItem("task-status", JSON.stringify(value))
+    const handleTaskStatus = (newStatus) => {
+        setSelectedStatus(newStatus)
+        onStatusChange(newStatus)
     }
 
     return (
-        <RadioGroup onChange={taskStatusHandler} value={taskStatus} >
+        <RadioGroup onChange={handleTaskStatus} value={selectedStatus} >
             <Stack direction='row'>
                 <Radio value='all'>All</Radio>
                 <Radio value='completed'>Completed</Radio>

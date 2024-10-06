@@ -4,8 +4,6 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Menu,
-    MenuButton,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -13,20 +11,17 @@ import {
     ModalHeader,
     ModalOverlay,
     Select,
-    MenuList,
-    MenuOptionGroup,
     ModalFooter,
-    MenuItemOption,
     useToast
 } from "@chakra-ui/react";
 
 import { useState, useEffect } from 'react';
 
-function TaskModal({ isOpen, onClose }) {
+function TaskModal({ isOpen, onClose, onTaskAdded }) {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [task_status, setTaskStatus] = useState("todo")
+    const [task_status, setTaskStatus] = useState("in-completed")
     const [date, setDate] = useState("")
 
     const toast = useToast();
@@ -48,7 +43,6 @@ function TaskModal({ isOpen, onClose }) {
                 task_status: task_status,
                 date: date
             }
-            console.log("new task", newTask)
 
             try {
                 const res = await fetch("https://6491d0272f2c7ee6c2c8f42f.mockapi.io/tasks", {
@@ -61,6 +55,8 @@ function TaskModal({ isOpen, onClose }) {
                 const data = await res.json()
                 console.log(data)
                 localStorage.setItem('tasks', JSON.stringify(data))
+                onTaskAdded(data)
+
                 setTitle("")
                 setDescription("")
                 setDate("")
