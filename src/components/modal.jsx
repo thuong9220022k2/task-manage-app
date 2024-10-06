@@ -53,8 +53,7 @@ function TaskModal({ isOpen, onClose, onTaskAdded }) {
                     body: JSON.stringify(newTask)
                 })
                 const data = await res.json()
-                console.log(data)
-                localStorage.setItem('tasks', JSON.stringify(data))
+                console.log("Data test", data)
                 onTaskAdded(data)
 
                 setTitle("")

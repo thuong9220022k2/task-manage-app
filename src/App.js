@@ -20,6 +20,7 @@ function App() {
   const [taskStatus, setTaskStatus] = useState("all");
 
   const handleTaskAdded = (newTask) => {
+    console.log("newTask", newTask)
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
     setFilteredTasks(updatedTasks);
@@ -31,6 +32,32 @@ function App() {
   };
 
   useEffect(() => {
+    const getTask = async () => {
+      if (localStorage.getItem('tasks')) {
+        setTasks(JSON.parse(localStorage.getItem('tasks')))
+      }
+      try {
+        const res = await fetch("https://6491d0272f2c7ee6c2c8f42f.mockapi.io/tasks", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        const data = await res.json()
+        console.log("data", data)
+        setTasks(data)
+        localStorage.setItem('tasks', JSON.stringify(data));
+        console.log("task", tasks)
+
+      }
+      catch (e) {
+        console.log(e);
+      }
+    }
+    getTask();
+  }, [])
+
+  useEffect(() => {
     const filterTask = () => {
       if (taskStatus !== "all") {
         const filteredTask = tasks.filter((task) => task.task_status === taskStatus);
@@ -39,7 +66,6 @@ function App() {
         setFilteredTasks(tasks);
       }
     };
-
     filterTask();
   }, [taskStatus, tasks]);
 
