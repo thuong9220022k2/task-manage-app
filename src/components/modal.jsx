@@ -60,11 +60,19 @@ function TaskModal({ isOpen, onClose }) {
                 })
                 const data = await res.json()
                 console.log(data)
+                localStorage.setItem('tasks', JSON.stringify(data))
                 setTitle("")
                 setDescription("")
                 setDate("")
                 setTaskStatus("in-completed")
                 onClose()
+                toast({
+                    title: "Task Created",
+                    description: "Task has been created successfully.",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
             }
             catch (err) {
                 console.log(err)

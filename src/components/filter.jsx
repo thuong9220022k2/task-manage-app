@@ -1,22 +1,22 @@
-import {
-    Flex,
-    Button,
-    Checkbox
-} from '@chakra-ui/react';
+import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
+import { useState, useEffect } from 'react';
 
 function Filter() {
+    const [taskStatus, setTaskStatus] = useState("all")
+
+    const taskStatusHandler = (value) => {
+        setTaskStatus(value)
+        localStorage.setItem("task-status", JSON.stringify(value))
+    }
+
     return (
-        <Flex>
-            <Button>
-                <Checkbox>All</Checkbox>
-            </Button>
-            <Button>
-                <Checkbox>Completed</Checkbox>
-            </Button>
-            <Button>
-                <Checkbox>In Completed</Checkbox>
-            </Button>
-        </Flex>
+        <RadioGroup onChange={taskStatusHandler} value={taskStatus} >
+            <Stack direction='row'>
+                <Radio value='all'>All</Radio>
+                <Radio value='completed'>Completed</Radio>
+                <Radio value='in-completed'>In-Completed</Radio>
+            </Stack>
+        </RadioGroup>
     )
 }
 

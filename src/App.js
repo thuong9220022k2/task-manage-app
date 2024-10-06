@@ -3,7 +3,8 @@ import {
   useDisclosure,
   Stack,
   Flex,
-  Box
+  Box,
+  Text
 } from '@chakra-ui/react'
 import './App.css';
 
@@ -16,17 +17,24 @@ function App() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <div className="App">
-      <Box mt={4}>
-        <Flex>
-          <Box w="50%">
-            <Button colorScheme="teal" onClick={onOpen}>Add Task</Button>
-          </Box>
-          <Box w="50%">
-            <Filter />
-          </Box>
-        </Flex>
+      <Box mt={4} w="80%" mx="auto">
+        <Box mt={4}>
+          <Text as="h1" fontSize="2xl">Task Management</Text>
+        </Box>
+        <Box mt={4}>
+          <Flex justifyContent="" alignItems="center">
+            <Box>
+              <Button colorScheme="teal" onClick={onOpen}>Add Task</Button>
+            </Box>
+            <Box ml={4}>
+              <Filter />
+            </Box>
+          </Flex>
+        </Box>
+        <Box mt={4}>
+          <TaskTable />
+        </Box>
         <TaskModal isOpen={isOpen} onClose={onClose} />
-        <TaskTable />
 
       </Box>
 
